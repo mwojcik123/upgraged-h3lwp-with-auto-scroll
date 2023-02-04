@@ -20,6 +20,9 @@ open class Engine(private val prefs: Flow<WallpaperPreferences>) : KtxGame<Scree
     fun moveCameraByOffset(offset: Float) {
         camera.moveCameraByOffset(offset)
     }
+    fun dup(offset: Float) {
+        camera.moveCamera()
+    }
 
     override fun create() {
         camera = Camera()
@@ -64,7 +67,7 @@ open class Engine(private val prefs: Flow<WallpaperPreferences>) : KtxGame<Scree
 
     override fun render() {
         assets.manager.update()
-
+        camera.moveCamera()
         super.render()
     }
 }

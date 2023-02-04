@@ -43,5 +43,8 @@ class AndroidEngine(
         if (useScroll && screens.containsKey(GameScreen::class.java)) {
             moveCameraByOffset(xOffset);
         }
+//        if (true) {
+//            dup(xOffset);
+//        }
     }
 }
