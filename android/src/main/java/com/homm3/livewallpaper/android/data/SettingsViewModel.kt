@@ -5,6 +5,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.homm3.livewallpaper.core.MapUpdateInterval
 import com.homm3.livewallpaper.core.Scale
+import com.homm3.livewallpaper.core.UseScroll
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
@@ -14,9 +15,9 @@ class SettingsViewModel(
 ) : ViewModel() {
     val settingsUiModel = wallpaperPreferencesRepository.preferencesFlow.asLiveData()
 
-    fun toggleUseScroll() {
+    fun toggleUseScroll(value: UseScroll) {
         viewModelScope.launch {
-            wallpaperPreferencesRepository.toggleUseScroll()
+            wallpaperPreferencesRepository.toggleUseScroll(value)
         }
     }
 

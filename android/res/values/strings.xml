@@ -39,6 +39,10 @@
     <string name="update_timeout_24hours">24 hours</string>
     <string name="update_timeout_every_switch">Every switch to home screen</string>
 
+    <string name="no_scroll_string" translatable="false">no scroling</string>
+    <string name="scroll_on_switch_string" translatable="false">scroll bettwen scenes</string>
+    <string name="auto_scroll" translatable="false">auto scrolling</string>
+
     <string name="settings_screen_title">Settings</string>
 
     <string name="phone_limitation_note">Please note few things:</string>
@@ -78,7 +82,7 @@
     <string name="scale_title">Scale</string>
     <string name="update_time_title">Update timeout</string>
     <string name="use_scroll_title">Scroll map</string>
-    <string name="use_scroll_summary">Scroll map while switching screens\nNote: Some phones doesn\'t support it</string>
+    <string name="use_scroll_summary">Scroll map\nNote: Some phones doesn\'t support it</string>
     <string name="maps_button">Maps</string>
     <string name="maps_item">Maps</string>
     <string name="wallpaper_change_limitation_button">OK</string>

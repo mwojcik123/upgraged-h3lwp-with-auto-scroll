@@ -54,7 +54,7 @@ class Camera : OrthographicCamera() {
 
     fun moveCameraByOffset(offset: Float) {
         position.x = cameraPoint.x + offset * Constants.SCROLL_OFFSET
-        position.y = cameraPoint.y + offset * Constants.SCROLL_OFFSET
+
 
     }
     fun moveCamera() {

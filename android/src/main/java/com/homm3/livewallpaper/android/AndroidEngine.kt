@@ -10,12 +10,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import com.homm3.livewallpaper.core.UseScroll
+
 
 class AndroidEngine(
     private val context: Context,
     private val prefs: Flow<WallpaperPreferences>
 ) : Engine(prefs), AndroidWallpaperListener {
-    var useScroll = WallpaperPreferences.defaultUseScroll
+    override var useScroll = WallpaperPreferences.defaultUseScroll
 
     init {
         CoroutineScope(Dispatchers.Default).launch {
@@ -40,7 +42,7 @@ class AndroidEngine(
         xOffsetStep: Float, yOffsetStep: Float,
         xPixelOffset: Int, yPixelOffset: Int
     ) {
-        if (useScroll && screens.containsKey(GameScreen::class.java)) {
+        if (useScroll.value == 1 && screens.containsKey(GameScreen::class.java)) {
             moveCameraByOffset(xOffset);
         }
 //        if (true) {

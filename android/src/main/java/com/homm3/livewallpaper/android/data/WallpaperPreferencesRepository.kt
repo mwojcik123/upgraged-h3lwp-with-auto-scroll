@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.homm3.livewallpaper.core.MapUpdateInterval
 import com.homm3.livewallpaper.core.Scale
+import com.homm3.livewallpaper.core.UseScroll
 import com.homm3.livewallpaper.core.WallpaperPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -17,7 +18,7 @@ val Context.dataStore by preferencesDataStore(name = "wallpaper_preferences")
 
 class WallpaperPreferencesRepository(private val dataStore: DataStore<Preferences>) {
     companion object PreferencesKeys {
-        val USE_SCROLL = booleanPreferencesKey("use_scroll")
+        val USE_SCROLL = intPreferencesKey("use_scroll")
         val SCALE = intPreferencesKey("scale")
         val BRIGHTNESS = floatPreferencesKey("brightness")
         val MAP_UPDATE_INTERVAL = intPreferencesKey("map_update_interval")
@@ -33,10 +34,8 @@ class WallpaperPreferencesRepository(private val dataStore: DataStore<Preference
         }
         .map { preferences -> mapUserPreferences(preferences) }
 
-    suspend fun toggleUseScroll() {
-        dataStore.edit { preferences ->
-            preferences[USE_SCROLL] = preferences[USE_SCROLL]?.not() ?: false
-        }
+    suspend fun toggleUseScroll(value: UseScroll) {
+        dataStore.edit { prefs -> prefs[USE_SCROLL] = value.value }
     }
 
     suspend fun setScale(value: Scale) {
@@ -57,7 +56,7 @@ class WallpaperPreferencesRepository(private val dataStore: DataStore<Preference
     private fun mapUserPreferences(preferences: Preferences): WallpaperPreferences {
         val scale = Scale.fromInt(preferences[SCALE])
         val mapUpdateInterval = MapUpdateInterval.fromInt(preferences[MAP_UPDATE_INTERVAL])
-        val useScroll = preferences[USE_SCROLL] ?: WallpaperPreferences.defaultUseScroll
+        val useScroll = UseScroll.fromInt(preferences[USE_SCROLL])
         val brightness = preferences[BRIGHTNESS] ?: WallpaperPreferences.defaultBrightness
 
         return WallpaperPreferences(scale, mapUpdateInterval, useScroll, brightness)

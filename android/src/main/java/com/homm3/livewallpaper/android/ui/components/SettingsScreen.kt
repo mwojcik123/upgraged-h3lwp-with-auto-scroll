@@ -19,6 +19,7 @@ import com.homm3.livewallpaper.android.ui.components.settings.SettingsItem
 import com.homm3.livewallpaper.android.ui.theme.H3lwpnextTheme
 import com.homm3.livewallpaper.core.MapUpdateInterval
 import com.homm3.livewallpaper.core.Scale
+import com.homm3.livewallpaper.core.UseScroll
 import com.homm3.livewallpaper.core.WallpaperPreferences
 
 
@@ -86,6 +87,21 @@ fun SettingsScreen(
             stringResource(R.string.update_timeout_24hours)
         ),
     )
+    val scrollUpdateIntervalOptions = listOf(
+            SettingsDropdownItem(
+                    UseScroll.NO_SCROLL,
+                    stringResource(R.string.no_scroll_string)
+            ),
+            SettingsDropdownItem(
+                    UseScroll.OFF_SET_SCROLL,
+                    stringResource(R.string.scroll_on_switch_string)
+            ),
+            SettingsDropdownItem(
+                    UseScroll.AUTO_SCROLLING,
+                    stringResource(R.string.auto_scroll)
+            ),
+
+    )
 
     val prefs by viewModel.settingsUiModel.observeAsState(WallpaperPreferences())
     var brightnessSliderValue by remember { mutableStateOf(prefs.brightness) }
@@ -131,17 +147,13 @@ fun SettingsScreen(
                     )
                 }
                 item {
-                    SettingsItem(
+                    SettingsDropdown(
                         title = stringResource(R.string.use_scroll_title),
-                        subtitle = stringResource(R.string.use_scroll_summary),
-                        onClick = { viewModel.toggleUseScroll() },
-                    ) { interactionSource ->
-                        Switch(
-                            checked = prefs.useScroll,
-                            onCheckedChange = { viewModel.toggleUseScroll() },
-                            interactionSource = interactionSource
-                        )
-                    }
+                        subtitle = scrollUpdateIntervalOptions.find { it.value == prefs.useScroll }?.title.orEmpty(),
+                        items = scrollUpdateIntervalOptions,
+                        selectedItemValue = prefs.useScroll,
+                        onItemSelected = { viewModel.toggleUseScroll(it.value) },
+                    )
                 }
                 item {
                     SettingsItem(

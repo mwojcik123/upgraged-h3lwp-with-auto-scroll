@@ -15,7 +15,19 @@ enum class MapUpdateInterval(val value: Int) {
         }
     }
 }
+enum class UseScroll(val value: Int) {
+    NO_SCROLL(0),
+    OFF_SET_SCROLL(1),
+    AUTO_SCROLLING(2);
 
+    companion object {
+        fun fromInt(value: Int?): UseScroll {
+            return values()
+                .runCatching { first { it.value == value } }
+                .getOrDefault(WallpaperPreferences.defaultUseScroll)
+        }
+    }
+}
 enum class Scale(val value: Int) {
     DPI(0),
     X1(1),
@@ -35,13 +47,13 @@ enum class Scale(val value: Int) {
 data class WallpaperPreferences(
     val scale: Scale = defaultScale,
     val mapUpdateInterval: MapUpdateInterval = defaultMapUpdateInterval,
-    val useScroll: Boolean = defaultUseScroll,
+    val useScroll: UseScroll = defaultUseScroll,
     val brightness: Float = defaultBrightness,
 ) {
     companion object Defaults {
         val defaultScale = Scale.DPI
         val defaultMapUpdateInterval = MapUpdateInterval.MINUTES_10
-        const val defaultUseScroll = true
+        val defaultUseScroll = UseScroll.AUTO_SCROLLING
         const val defaultBrightness = 0.6f
     }
 }

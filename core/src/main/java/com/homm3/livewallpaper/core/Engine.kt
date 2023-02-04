@@ -12,6 +12,7 @@ import ktx.app.KtxGame
 open class Engine(private val prefs: Flow<WallpaperPreferences>) : KtxGame<Screen>(null, false) {
     private lateinit var assets: Assets
     private lateinit var camera: Camera
+    open var useScroll = WallpaperPreferences.defaultUseScroll
 
     open fun onSettingsButtonClick() {}
 
@@ -67,7 +68,9 @@ open class Engine(private val prefs: Flow<WallpaperPreferences>) : KtxGame<Scree
 
     override fun render() {
         assets.manager.update()
-        camera.moveCamera()
+        if(useScroll.value == 2){
+            camera.moveCamera()
+        }
         super.render()
     }
 }
