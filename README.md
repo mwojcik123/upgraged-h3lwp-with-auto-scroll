@@ -4,7 +4,9 @@
 
 ## Preview
 
-![demo.gif](./demo.gif 'demo.gif')
+# upgraded h3 wallpaper with auto scrolling
+
+![demo.gif](./demo.gif "demo.gif")
 
 ## Credits
 
